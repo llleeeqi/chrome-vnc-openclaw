@@ -1,0 +1,10 @@
+services:
+  chrome-vnc:
+    build: .
+    container_name: chrome-vnc
+    hostname: chrome-vnc
+    network_mode: host
+    volumes:
+      - ./data:/root/chrome-data  # 浏览器数据持久化
+    shm_size: 2gb
+    restart: unless-stopped

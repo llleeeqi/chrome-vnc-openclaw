@@ -1,0 +1,48 @@
+#!/bin/bash
+# Chrome MCP Wrapper - 通过 docker exec 执行 CDP 命令
+
+CONTAINER="chrome-vnc"
+CDP_PORT=18799
+
+case "$1" in
+    tabs)
+        docker exec $CONTAINER curl -s "http://127.0.0.1:$CDP_PORT/json/list"
+        ;;
+    version)
+        docker exec $CONTAINER curl -s "http://127.0.0.1:$CDP_PORT/json/version"
+        ;;
+    new)
+        docker exec $CONTAINER curl -s "http://127.0.0.1:$CDP_PORT/json/new?url=${2:-about:blank}"
+        ;;
+    screenshot)
+        TAB_ID=$(docker exec $CONTAINER curl -s "http://127.0.0.1:$CDP_PORT/json/list" | grep -o '"id":"[^"]*"' | head -1 | cut -d'"' -f4)
+        if [ -n "$TAB_ID" ]; then
+            docker exec $CONTAINER curl -s "http://127.0.0.1:$CDP_PORT/screenshot?id=$TAB_ID&format=png"
+        fi
+        ;;
+    navigate)
+        TAB_ID=$(docker exec $CONTAINER curl -s "http://127.0.0.1:$CDP_PORT/json/list" | grep -o '"id":"[^"]*"' | head -1 | cut -d'"' -f4)
+        if [ -n "$TAB_ID" ] && [ -n "$2" ]; then
+            docker exec $CONTAINER curl -s "http://127.0.0.1:$CDP_PORT/json/navigate?id=$TAB_ID&url=$2"
+        fi
+        ;;
+    eval)
+        TAB_ID=$(docker exec $CONTAINER curl -s "http://127.0.0.1:$CDP_PORT/json/list" | grep -o '"id":"[^"]*"' | head -1 | cut -d'"' -f4)
+        if [ -n "$TAB_ID" ] && [ -n "$2" ]; then
+            docker exec $CONTAINER curl -s -X POST "http://127.0.0.1:$CDP_PORT/json/evaluate?id=$TAB_ID" \
+                -H "Content-Type: application/json" \
+                -d "{\"expression\": \"$2\"}"
+        fi
+        ;;
+    *)
+        echo "Usage: $0 <command> [args...]"
+        echo ""
+        echo "Commands:"
+        echo "  tabs              - 列出所有标签页"
+        echo "  version           - 获取 Chrome 版本"
+        echo "  new [url]         - 创建新标签页"
+        echo "  screenshot        - 截图 (base64)"
+        echo "  navigate <url>    - 导航到 URL"
+        echo "  eval <js>         - 执行 JavaScript"
+        ;;
+esac

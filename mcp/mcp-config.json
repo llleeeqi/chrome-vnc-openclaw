@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "chrome-vnc": {
+      "command": "/opt/1panel/docker/compose/chrome-vnc/mcp/chrome-mcp",
+      "args": []
+    }
+  }
+}
