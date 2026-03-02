@@ -2,6 +2,8 @@
 
 🥚 有头 Chrome 浏览器 + VNC 远程访问 + CDP 协议支持，可被 OpenClaw 等 AI 工具控制。
 
+[![Deploy with 1Panel](https://img.shields.io/badge/Deploy-1Panel-blue?style=flat-square)](https://1panel.cn/)
+
 ## 特性
 
 - 🖥️ 有头 Chrome（非 headless），可交互
@@ -12,13 +14,15 @@
 
 ---
 
-## 快速开始（AI 用）
+## 快速开始
+
+> 💡 把本项目复制给 OpenClaw 或 OpenCode，交给它执行以下命令，燃烧 token，等待部署完成。
 
 ### 部署
 
 ```bash
-git clone <本仓库地址>
-cd chrome-vnc
+git clone https://github.com/llleeeqi/chrome-vnc-openclaw.git
+cd chrome-vnc-openclaw
 docker compose up -d --build
 ```
 
@@ -51,7 +55,7 @@ openclaw browser tabs
 
 ---
 
-## 人用：常用操作
+## 常用操作
 
 ```bash
 # 重启浏览器容器
@@ -76,7 +80,7 @@ openclaw browser close <tab_id>
 ## 目录结构
 
 ```
-chrome-vnc/
+.
 ├── Dockerfile          # 镜像构建
 ├── docker-compose.yml # 编排配置
 ├── start.sh           # 启动脚本
