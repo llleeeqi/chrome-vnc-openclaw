@@ -1,8 +1,12 @@
+# 🚀 把本项目复制给 OpenClaw 或 OpenCode，交给它执行以下命令，燃烧 token，等待部署完成
+
+---
+
 # Chrome VNC 容器
 
 🥚 有头 Chrome 浏览器 + VNC 远程访问 + CDP 协议支持，可被 OpenClaw 等 AI 工具控制。
 
-[![Deploy with 1Panel](https://img.shields.io/badge/Deploy-1Panel-blue?style=flat-square)](https://1panel.cn/)
+[![Deploy with 1Panel](https://img.shields.io/badge/Deploy-1Panel-blue?style=for-the-badge)](https://1panel.cn/)
 
 ## 特性
 
@@ -15,8 +19,6 @@
 ---
 
 ## 快速开始
-
-> 💡 把本项目复制给 OpenClaw 或 OpenCode，交给它执行以下命令，燃烧 token，等待部署完成。
 
 ### 部署
 
